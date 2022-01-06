@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
           //MOVIES TEXT
           Container(
               alignment: Alignment.topLeft,
-              padding: const EdgeInsets.fromLTRB(35, 0, 0, 10),
+              padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
               child: Text('Movies',
                   textAlign: TextAlign.left,
                   style: GoogleFonts.poppins(

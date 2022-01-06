@@ -49,12 +49,14 @@ class _MoviePageState extends State<MoviePage> {
                       children: [
                         Container(
                             alignment: Alignment.topLeft,
-                            child: Text(
-                                widget.movie.name.toString().toUpperCase(),
-                                maxLines: 1,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24))),
+                            child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                    widget.movie.name.toString().toUpperCase(),
+                                    maxLines: 1,
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24)))),
                         Container(
                             alignment: Alignment.topLeft,
                             child: Text('Type',
@@ -94,24 +96,23 @@ class _MoviePageState extends State<MoviePage> {
             Positioned(
               left: 30.0,
               top: MediaQuery.of(context).size.height / 1.6,
-              child: Container(
-                  child: Text('Summary',
-                      maxLines: 1,
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, fontSize: 14))),
+              child: Text('Summary',
+                  maxLines: 1,
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, fontSize: 14)),
             ),
             Positioned(
-              left: 30.0,
-              top: MediaQuery.of(context).size.height / 1.5,
-              child: Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.height / 3.5,
-                  child: SingleChildScrollView(
-                      child: Text(
-                          'The The G-rated feature tells a story both simple and profound. Sosuke, a 5-year-old who lives in a house on a seaside cliff, finds a goldfish trapped in a jar on the beach. This is Ponyo. Freeing her, he is rewarded by a lick on a finger that heals a cut. And by tasting human blood, we learn, Ponyo gains the ability to transform between fish and human.The G-rated feature tells a story both simple and profound. Sosuke, a 5-year-old who lives in a house on a seaside cliff, finds a goldfish trapped in a jar on the beach. This is Ponyo. Freeing her, he is rewarded by a lick on a finger that heals a cut. And by tasting human blood, we learn, Ponyo gains the ability to transform between fish and human.G-rated feature tells a story both simple and profound. Sosuke, a 5-year-old who lives in a house on a seaside cliff, finds a goldfish trapped in a jar on the beach. This is Ponyo. Freeing her, he is rewarded by a lick on a finger that heals a cut. And by tasting human blood, we learn, Ponyo gains the ability to transform between fish and human.',
-                          // maxLines: 1,
-                          style: GoogleFonts.poppins(fontSize: 14)))),
-            )
+                left: 30.0,
+                top: MediaQuery.of(context).size.height / 1.5,
+                // child: Container(
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: MediaQuery.of(context).size.height / 3.5,
+                child: SingleChildScrollView(
+                    child: Text(
+                        'The The G-rated feature tells a story both simple and profound. Sosuke, a 5-year-old who lives in a house on a seaside cliff, finds a goldfish trapped in a jar on the beach. This is Ponyo. Freeing her, he is rewarded by a lick on a finger that heals a cut. And by tasting human blood, we learn, Ponyo gains the ability to transform between fish and human.The G-rated feature tells a story both simple and profound. Sosuke, a 5-year-old who lives in a house on a seaside cliff, finds a goldfish trapped in a jar on the beach. This is Ponyo. Freeing her, he is rewarded by a lick on a finger that heals a cut. And by tasting human blood, we learn, Ponyo gains the ability to transform between fish and human.G-rated feature tells a story both simple and profound. Sosuke, a 5-year-old who lives in a house on a seaside cliff, finds a goldfish trapped in a jar on the beach. This is Ponyo. Freeing her, he is rewarded by a lick on a finger that heals a cut. And by tasting human blood, we learn, Ponyo gains the ability to transform between fish and human.',
+                        // maxLines: 1,
+                        style: GoogleFonts.poppins(fontSize: 14)))),
+            // )
           ],
         )),
       ),
