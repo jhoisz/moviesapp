@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviesapp/src/home/models/movie.dart';
+import 'package:moviesapp/src/home/services/home_service.dart';
 import 'widgets/movie_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,52 +13,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Movie> listMovies = [];
-
-  var movies = [
-    {
-      'name: ': 'AAAAAA',
-      'image':
-          'https://lojasaraiva.vteximg.com.br/arquivos/ids/12105538/1002443202.jpg?v=637142234580400000'
-    },
-    {
-      'name': 'Ponyo (2010)',
-      'image':
-          'https://upload.wikimedia.org/wikipedia/pt/e/e2/Ponyo_p%C3%B4ster.png'
-    },
-    {
-      'name': 'Mr. Nobody (2009)',
-      'image': 'https://m.media-amazon.com/images/I/91WY2zIvzzL._AC_SY550_.jpg'
-    },
-    {
-      'name': 'O Hobbit: A desolação de Smaug (2013)',
-      'image':
-          'https://br.web.img3.acsta.net/pictures/210/571/21057125_20131112201221324.jpg'
-    },
-    {
-      'name': 'Mr. Nobody (2009)',
-      'image': 'https://m.media-amazon.com/images/I/91WY2zIvzzL._AC_SY550_.jpg'
-    },
-    {
-      'name': 'O Hobbit: A desolação de Smaug (2013) ',
-      'image':
-          'https://br.web.img3.acsta.net/pictures/210/571/21057125_20131112201221324.jpg'
-    },
-    {
-      'name': 'Mr. Nobody (2009)',
-      'image': 'https://m.media-amazon.com/images/I/91WY2zIvzzL._AC_SY550_.jpg'
-    },
-    {
-      'name': 'O Hobbit: A desolação de Smaug (2013)',
-      'image':
-          'https://br.web.img3.acsta.net/pictures/210/571/21057125_20131112201221324.jpg'
-    }
-  ];
+  final homeService = HomeService();
 
   @override
   void initState() {
-    for (var element in movies) {
-      listMovies.add(Movie.fromJson(element));
-    }
+    homeService.fetchMovies().then((value) {
+      setState(() {
+        listMovies = value;
+      });
+    });
     // TODO: implement initState
     super.initState();
   }
@@ -108,16 +72,17 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold, fontSize: 32))),
           Expanded(
             child: GridView.count(
-            crossAxisCount: 2,
-            childAspectRatio: ((MediaQuery.of(context).size.width/1.8)/(MediaQuery.of(context).size.height/2.8)),
-            children: List.generate(listMovies.length, (index){
-                return  MovieCard(movie: listMovies[index]);
-                
-              }
+              crossAxisCount: 2,
+              childAspectRatio: ((MediaQuery.of(context).size.width / 1.8) /
+                  (MediaQuery.of(context).size.height / 2.8)),
+              children: List.generate(
+                listMovies.length,
+                (index) {
+                  return MovieCard(movie: listMovies[index]);
+                },
+              ),
             ),
-          )
           ),
-          
         ],
       ),
     );

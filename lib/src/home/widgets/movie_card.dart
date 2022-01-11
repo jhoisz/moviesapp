@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviesapp/src/home/models/movie.dart';
-import 'package:moviesapp/src/movie_details/moviepage.dart';
+import 'package:moviesapp/src/movie/movie_page.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({Key? key, required this.movie}) : super(key: key);
@@ -25,31 +25,44 @@ class MovieCard extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MoviePage(movie: movie)));
+                    MaterialPageRoute(
+                        builder: (context) => MoviePage(movie: movie)));
               },
               child: Container(
                 height: 200,
                 width: 150,
                 decoration: BoxDecoration(
+                    color: Colors.red,
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
-                        image: NetworkImage(movie.image.toString()),
+                        image: NetworkImage(
+                          movie.getImage(movie.posterPath),
+                        ),
                         fit: BoxFit.fill)),
               ),
             ),
 
             //MOVIE NAME
             Container(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: Text(
-                    movie.name.toString().length > 17
-                        ? movie.name.toString().substring(0, 13) + "..."
-                        : movie.name.toString(),
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500, fontSize: 13))),
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+              child: Text(
+                getTitle(),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w500, fontSize: 13),
+              ),
+            ),
           ],
         ));
+  }
+
+  String getTitle() {
+    if (movie.title != null) {
+      return movie.title!.length > 17
+          ? movie.title!.substring(0, 13) + '...'
+          : movie.title!;
+    }
+    return 'Name unavaliabe';
   }
 }
