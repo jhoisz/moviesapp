@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviesapp/src/home/models/movie.dart';
@@ -20,20 +21,30 @@ class _MoviePageState extends State<MoviePage> {
         // child: Expanded(
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(24),
-                    bottomRight: Radius.circular(24)),
-                image: DecorationImage(
-                    image: NetworkImage(
-                      widget.movie.getImage(widget.movie.posterPath),
+              child: CachedNetworkImage(
+                imageUrl: widget.movie.getImage(widget.movie.posterPath),
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(24),
+                        bottomRight: Radius.circular(24)),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        widget.movie.getImage(widget.movie.posterPath),
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover),
+                  ),
+                ),
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
+
             Center(
               child: Container(
                 padding: const EdgeInsets.all(25.0),

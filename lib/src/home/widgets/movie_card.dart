@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviesapp/src/home/models/movie.dart';
@@ -28,17 +29,25 @@ class MovieCard extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => MoviePage(movie: movie)));
               },
-              child: Container(
+              child: SizedBox(
                 height: 200,
                 width: 150,
-                decoration: BoxDecoration(
-                    color: Colors.grey[350],
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          movie.getImage(movie.posterPath),
-                        ),
-                        fit: BoxFit.fill)),
+                child: CachedNetworkImage(
+                  imageUrl: movie.getImage(movie.posterPath),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[350],
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill
+                      )
+                    ),
+                  ),
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
             ),
 
