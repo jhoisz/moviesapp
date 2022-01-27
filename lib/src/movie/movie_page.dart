@@ -18,7 +18,7 @@ class _MoviePageState extends State<MoviePage> {
       child: Container(
         color: Colors.white,
         // child: Expanded(
-            child: Stack(
+        child: Stack(
           children: [
             Container(
               height: MediaQuery.of(context).size.height / 2,
@@ -50,6 +50,7 @@ class _MoviePageState extends State<MoviePage> {
                   ],
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
@@ -66,50 +67,43 @@ class _MoviePageState extends State<MoviePage> {
                         ),
                       ),
                     ),
-                    Container(
-                        alignment: Alignment.topLeft,
-                        child: Text('Vote Average',
-                            maxLines: 1,
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold, fontSize: 14))),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        widget.movie.voteAverage.toString(),
-                        maxLines: 1,
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      ),
+                    Text(
+                      'Vote Average',
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold, fontSize: 14),
                     ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Released in',
-                        maxLines: 1,
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
+                    Text(
+                      widget.movie.voteAverage.toString(),
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(fontSize: 14),
                     ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        widget.movie.releaseDate ?? 'Released date unavaliable',
-                        maxLines: 1,
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      ),
+                    Text(
+                      'Released in',
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                    Text(
+                      widget.movie.releaseDate ?? 'Released date unavaliable',
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(fontSize: 14),
                     ),
                   ],
                 ),
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(30.0),
-                child: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    iconSize: 30,
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    })),
+              padding: const EdgeInsets.all(30.0),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                iconSize: 30,
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
             Positioned(
               left: 30.0,
               top: MediaQuery.of(context).size.height / 1.6,
@@ -135,7 +129,7 @@ class _MoviePageState extends State<MoviePage> {
             ),
             // )
           ],
-        // ),
+          // ),
         ),
       ),
     );

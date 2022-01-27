@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             child: GridView.count(
               crossAxisCount: 2,
               childAspectRatio: ((MediaQuery.of(context).size.width / 1.8) /
-                  (MediaQuery.of(context).size.height / 2.8)),
+                  (MediaQuery.of(context).size.height /2.9)),
               children: List.generate(
                 listMovies.length,
                 (index) {

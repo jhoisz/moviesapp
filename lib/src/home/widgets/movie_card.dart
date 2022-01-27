@@ -14,7 +14,7 @@ class MovieCard extends StatelessWidget {
         // color: Colors.red,
         width: MediaQuery.of(context).size.width / 1.8,
         height: MediaQuery.of(context).size.height / 1.5,
-        padding: const EdgeInsets.fromLTRB(30, 15.0, 30, 15.0),
+        padding: const EdgeInsets.all(15.0),
         alignment: Alignment.center,
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +32,7 @@ class MovieCard extends StatelessWidget {
                 height: 200,
                 width: 150,
                 decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: Colors.grey[350],
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
                         image: NetworkImage(
