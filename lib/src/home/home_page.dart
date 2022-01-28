@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:moviesapp/src/home/cubit/home_cubit.dart';
 import 'package:moviesapp/src/home/models/movie.dart';
 import 'package:moviesapp/src/home/services/home_service.dart';
 import 'widgets/movie_card.dart';
@@ -12,16 +14,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Movie> listMovies = [];
-  final homeService = HomeService();
+  final homeCubit = HomeCubit();
 
   @override
   void initState() {
-    homeService.fetchMovies().then((value) {
-      setState(() {
-        listMovies = value;
-      });
-    });
+    homeCubit.fetchMovies();
     // TODO: implement initState
     super.initState();
   }
@@ -64,23 +61,59 @@ class _HomePageState extends State<HomePage> {
 
           //MOVIES TEXT
           Container(
-              alignment: Alignment.topLeft,
-              padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
-              child: Text('Movies',
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, fontSize: 32))),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: ((MediaQuery.of(context).size.width / 1.8) /
-                  (MediaQuery.of(context).size.height /2.9)),
-              children: List.generate(
-                listMovies.length,
-                (index) {
-                  return MovieCard(movie: listMovies[index]);
-                },
+            alignment: Alignment.topLeft,
+            padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+            child: Text(
+              'Movies',
+              textAlign: TextAlign.left,
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold,
+                fontSize: 32,
               ),
+            ),
+          ),
+          Expanded(
+            child: BlocBuilder<HomeCubit, HomeState>(
+              bloc: homeCubit,
+              builder: (context, state) {
+                if (state is HomeSuccess) {
+                  return GridView.count(
+                    crossAxisCount: 2,
+                    childAspectRatio:
+                        ((MediaQuery.of(context).size.width / 1.8) /
+                            (MediaQuery.of(context).size.height / 2.9)),
+                    children: List.generate(
+                      state.movies.length,
+                      (index) {
+                        return MovieCard(movie: state.movies[index]);
+                      },
+                    ),
+                  );
+                } else if (state is HomeLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is HomeError) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.error,
+                        size: 30.0,
+                      ),
+                      const SizedBox(height: 15.0),
+                      Text(
+                        'There was an error fetching the movies',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                        ),
+                      )
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
           ),
         ],
