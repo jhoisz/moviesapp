@@ -28,4 +28,4 @@ flutter run
 
 ## Application Screenshots 
 
-![](../moviesapp\screenshots\teste4.svg)
+![](../moviesapp/screenshots/TESTEE.png)
