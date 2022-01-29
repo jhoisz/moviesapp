@@ -28,4 +28,4 @@ flutter run
 
 ## Application Screenshots 
 
-![Screenshots](https://github.com/jhoisz/moviesapp/blob/main/screenshots/TESTEE.png)
+![Screenshots](https://github.com/jhoisz/moviesapp/blob/main/screenshots/app.svg)
