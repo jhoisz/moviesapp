@@ -7,9 +7,9 @@ This is a flutter application that displays a list of the most popular movies, i
 -----
 
 ## How to Install and Run the Project
-To test the project, [install flutter](https://docs.flutter.dev/get-started/install). 
+First you must [install flutter](https://docs.flutter.dev/get-started/install). 
 
-To get started, you can connect a device to your computer or use an emulator. Enter the following command in the project terminal:
+To test you can connect a device to your computer or use an emulator. Enter the following command in the project terminal:
 
 ```bash
 flutter run
