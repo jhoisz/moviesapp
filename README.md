@@ -1,4 +1,4 @@
-# Movies App
+# Movies App :movie_camera:
 
 
 ## Description
