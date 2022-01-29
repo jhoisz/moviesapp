@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:moviesapp/src/home/models/movie.dart';
@@ -16,7 +18,25 @@ class HomeCubit extends Cubit<HomeState> {
       final movies = await homeService.fetchMovies();
       emit(HomeSuccess(movies));
     } catch (error) {
-      emit(HomeError());
+      emit(HomeError('There was an error fetching the movies'));
     }
+  }
+
+  Future<void> searchMovie(String query) async {
+    Timer? timer;
+    if (timer?.isActive ?? false) {
+      timer!.cancel();
+    }
+
+    timer = Timer(const Duration(seconds: 1), () async {
+      emit(HomeLoading());
+
+      try {
+        final movie = await homeService.searchMovie(query);
+        emit(HomeSuccess(movie));
+      } catch (error) {
+        emit(HomeError('There was an error finding movie'));
+      }
+    });
   }
 }

@@ -25,16 +25,14 @@ class _MoviePageState extends State<MoviePage> {
               height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
               child: CachedNetworkImage(
-                imageUrl: widget.movie.getImage(widget.movie.posterPath),
+                imageUrl: widget.movie.getImage(),
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(24),
                         bottomRight: Radius.circular(24)),
                     image: DecorationImage(
-                      image: NetworkImage(
-                        widget.movie.getImage(widget.movie.posterPath),
-                      ),
+                      image: imageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),

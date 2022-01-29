@@ -1,9 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviesapp/src/home/cubit/home_cubit.dart';
-import 'package:moviesapp/src/home/models/movie.dart';
-import 'package:moviesapp/src/home/services/home_service.dart';
 import 'widgets/movie_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     homeCubit.fetchMovies();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -31,33 +30,41 @@ class _HomePageState extends State<HomePage> {
         children: [
           //SEARCH BAR
           Container(
-              margin: const EdgeInsets.fromLTRB(0, 50.0, 0, 20.0),
-              width: MediaQuery.of(context).size.width / 1.2,
-              height: 45.0,
-              decoration: BoxDecoration(
-                  color: const Color(0xFFF4F4F4),
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 8,
-                        offset: const Offset(0, 6))
-                  ]),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextFormField(
-                    onChanged: (text) {
-                      print('Campo de texto: $text');
-                    },
-                    decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        labelText: 'Search',
-                        labelStyle:
-                            TextStyle(color: Color(0xFF7E7E7E), fontSize: 14),
-                        // border: disabledBorder,
-                        suffixIcon: Icon(Icons.search))),
-              )),
+            margin: const EdgeInsets.fromLTRB(0, 50.0, 0, 20.0),
+            width: MediaQuery.of(context).size.width / 1.2,
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF4F4F4),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  blurRadius: 8,
+                  offset: const Offset(0, 6),
+                )
+              ],
+            ),
+            child: TextFormField(
+              onChanged: (text) {
+                if (text.isNotEmpty) {
+                  homeCubit.searchMovie(text);
+                } else {
+                  homeCubit.fetchMovies();
+                }
+              },
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                hintText: 'Search',
+                hintStyle: TextStyle(
+                  color: Color(0xFF7E7E7E),
+                  fontSize: 14,
+                ),
+                // border: disabledBorder,
+                suffixIcon: Icon(Icons.search),
+              ),
+            ),
+          ),
 
           //MOVIES TEXT
           Container(
@@ -85,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                     children: List.generate(
                       state.movies.length,
                       (index) {
-                        return MovieCard(movie: state.movies[index]);
+                        final movie = state.movies[index];
+                        return MovieCard(movie: movie);
                       },
                     ),
                   );
@@ -103,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 15.0),
                       Text(
-                        'There was an error fetching the movies',
+                        state.error,
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                         ),

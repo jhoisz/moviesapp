@@ -12,7 +12,6 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // color: Colors.red,
         width: MediaQuery.of(context).size.width / 1.8,
         height: MediaQuery.of(context).size.height / 1.5,
         padding: const EdgeInsets.all(15.0),
@@ -25,28 +24,36 @@ class MovieCard extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MoviePage(movie: movie)));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MoviePage(movie: movie),
+                  ),
+                );
               },
               child: SizedBox(
                 height: 200,
                 width: 150,
                 child: CachedNetworkImage(
-                  imageUrl: movie.getImage(movie.posterPath),
+                  imageUrl: movie.getImage(),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[350],
                       borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(
                         image: imageProvider,
-                        fit: BoxFit.fill
-                      )
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   placeholder: (context, url) =>
                       const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => Container(
+                    child: const Icon(Icons.error),
+                     decoration: BoxDecoration(
+                      color: Colors.grey[350],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
                 ),
               ),
             ),

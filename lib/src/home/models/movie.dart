@@ -54,13 +54,13 @@ class Movie {
   Movie.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path']?.toString();
-  if (json['genre_ids'] != null) {
-  final v = json['genre_ids'];
-  final arr0 = <int>[];
-  v.forEach((v) {
-  arr0.add(v.toInt());
-  });
-    genreIds = arr0;
+    if (json['genre_ids'] != null) {
+      final v = json['genre_ids'];
+      final arr0 = <int>[];
+      v.forEach((v) {
+        arr0.add(v.toInt());
+      });
+      genreIds = arr0;
     }
     id = json['id']?.toInt();
     originalLanguage = json['original_language']?.toString();
@@ -81,9 +81,9 @@ class Movie {
     if (genreIds != null) {
       final v = genreIds;
       final arr0 = [];
-  v!.forEach((v) {
-  arr0.add(v);
-  });
+      v!.forEach((v) {
+        arr0.add(v);
+      });
       data['genre_ids'] = arr0;
     }
     data['id'] = id;
@@ -100,11 +100,7 @@ class Movie {
     return data;
   }
 
-  String getImage(String? posterPath) {
-    if (posterPath != null) {
-      return 'https://image.tmdb.org/t/p/original/' + posterPath;
-    }
-    return 'https://www.iconpacks.net/icons/1/free-error-icon-905-thumb.png';
+  String getImage() {
+    return 'https://image.tmdb.org/t/p/original' + posterPath.toString();
   }
-
 }

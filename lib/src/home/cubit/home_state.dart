@@ -13,4 +13,8 @@ class HomeSuccess extends HomeState {
   HomeSuccess(this.movies);
 }
 
-class HomeError extends HomeState {}
+class HomeError extends HomeState {
+  final String error;
+
+  HomeError(this.error); 
+}
