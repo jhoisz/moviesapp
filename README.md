@@ -14,11 +14,18 @@ The layout of the project can be seen in [this link](https://www.figma.com/file/
 
 
 ## How to Install and Run the Project
-First you must [install flutter](https://docs.flutter.dev/get-started/install) and clone this repository. 
+First you must [install flutter](https://docs.flutter.dev/get-started/install).
 
-To test you can connect a device to your computer or use an emulator. Enter the following command in the project terminal:
+Then clone the project repository and enter the project folder:
+```bash
+git clone https://github.com/jhoisz/moviesapp.git
+cd moviesapp
+```
+
+Now for testing you can connect a device to your computer or use an emulator. Install the dependencies and start the application:
 
 ```bash
+flutter pub get
 flutter run
 ```
 
